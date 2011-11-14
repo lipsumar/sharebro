@@ -503,7 +503,7 @@ var lipsShowShareLoad = function(){waitEl.style.display='block';}
 var lipsHideShareLoad = function(){waitEl.style.display='none';}
 
 var lipsOnKeyDown = function(e){
-	if(e.keyCode==83 && event.shiftKey) {
+	if(e.keyCode==83 && event.altKey) {
 		doShare();
 	}
 };
