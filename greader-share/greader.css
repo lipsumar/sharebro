@@ -22,3 +22,7 @@
 
 #lips-mySharedItems .shareFeedByMail{visibility:hidden;}
 #lips-mySharedItems:hover .shareFeedByMail{visibility:visible;}
+
+.entry .lips-shareBtn{padding:1px 20px 1px 0px;cursor:pointer;}
+.entry .lips-shareBtn.shared{color:green;}
+
