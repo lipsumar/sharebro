@@ -15,8 +15,8 @@ function auth($userID){
 	
 }
 
-function postItem($userID,$url,$title,$body){
-	$q = 'insert into greader_items (user_id,url,title,body,tstamp) values (\''.$userID.'\',\''.addslashes($url).'\',\''.addslashes($title).'\',\''.addslashes($body).'\','.time().')';
+function postItem($userID,$url,$title,$body,$sourceFeed='',$sourceName='',$authorName=''){
+	$q = 'insert into greader_items (user_id,url,title,body,source,source_name,author,tstamp) values (\''.$userID.'\',\''.addslashes($url).'\',\''.addslashes($title).'\',\''.addslashes($body).'\',\''.addslashes($sourceFeed).'\',\''.addslashes($sourceName).'\',\''.addslashes($authorName).'\','.time().')';
 	return mysql_query($q);
 }
 
@@ -110,11 +110,16 @@ function output_feed($userID){
 	
 	
 	foreach($items as $r){
-	
+		
+		$body = stripslashes($r['body']);
+		$body = iconv("UTF-8","UTF-8//IGNORE",$body);
+
 		echo '<item>';
         echo '<title><![CDATA[' . htmlspecialchars(strip_tags(stripslashes($r['title']==''?$r['url']:$r['title']))) . ']]></title>';
+        echo '<dc:creator>'.htmlspecialchars(strip_tags(stripslashes($r['author']))).'</dc:creator>';
+        echo '<source url="'.htmlspecialchars(stripslashes($r['source'])).'">'.htmlspecialchars(strip_tags(stripslashes($r['source_name']))).'</source>'; 
         echo '<description><![CDATA[
-        '.stripslashes($r['body']).'
+        '.$body.'
         
         <p><a href="'.$r['url'].'" target="_blank">View full article &gt;&gt;</a></p>
         ]]></description>';
@@ -126,6 +131,7 @@ function output_feed($userID){
     echo '</rss>';
     die();
 }
+
 
 function allJSONPReturns(){
 	return 'lipsHideShareLoad();';

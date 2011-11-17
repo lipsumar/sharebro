@@ -21,7 +21,9 @@ if($_GET['_USER_ID']!='' && auth($_GET['_USER_ID'])){
 		'.allJSONPReturns());
 	}
 	
-	if(postItem($_GET['_USER_ID'],$_GET['url'],trim($_GET['title']),$_GET['body'])){
+	
+	
+	if(postItem($_GET['_USER_ID'],$_GET['url'],trim($_GET['title']),$_GET['body'],$_GET['sf'],$_GET['sn'],$_GET['an'])){
 		echo 'lipsShowShareOK();'.allJSONPReturns();
 	}else{
 		echo 'lipsDialog.alert("post failed.")'.allJSONPReturns();
